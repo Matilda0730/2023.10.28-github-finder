@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #202124;
+  text-decoration: none;
+}
+
+.top-nav-menu ul {
+  margin-left: 20px;
+  font-size: 14px;
+  color: #202124;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  width: 50%;
+}
+
+.top-nav li {
+  margin-top: 20px;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.index_text {
+  text-align: center;
+  margin-top: 300px;
+}
+
+.input-container-box {
+  margin-top: 30px;
+  width: 80%;
+  text-align: center;
+}
+
+/* 추가할 애니메이션 스타일 */
+.animate-up {
+  animation: moveUp 0.5s forwards;
+}
+
+@keyframes moveUp {
+  to {
+    transform: translateY(-150px); /* 원하는 거리만큼 올라가게 조절 */
+  }
+}
+
+.animate-down {
+  animation: moveDown 0.5s forwards;
+}
+
+@keyframes moveDown {
+  to {
+    transform: translateY(0px);
+  }
+}
