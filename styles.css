@@ -1,6 +1,18 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
+
+ul{
+    list-style:none;
+    padding-left:0px;
+  }
+
 * {
   padding: 0;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+.hidden {
+  display: none;
 }
 
 a {
@@ -43,14 +55,13 @@ a:visited {
   text-align: center;
 }
 
-/* 추가할 애니메이션 스타일 */
 .animate-up {
   animation: moveUp 0.5s forwards;
 }
 
 @keyframes moveUp {
   to {
-    transform: translateY(-150px); /* 원하는 거리만큼 올라가게 조절 */
+    transform: translateY(-150px); 
   }
 }
 
@@ -62,4 +73,8 @@ a:visited {
   to {
     transform: translateY(0px);
   }
+}
+
+.profile-person-nickname2 {
+  border: solid #dee2e6 1px;
 }
