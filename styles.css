@@ -11,15 +11,16 @@ ul{
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
 
 a {
   text-decoration: none;
 }
 
 a:link {
+  color: #202124;
   text-decoration: none;
 }
 
@@ -77,4 +78,8 @@ a:visited {
 
 .profile-person-nickname2 {
   border: solid #dee2e6 1px;
+}
+
+.git-footer {
+  text-align: center;
 }

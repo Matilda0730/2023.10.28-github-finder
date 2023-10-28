@@ -47,6 +47,11 @@ const liWebsite = document.querySelector('.li-website');
 const liLocation = document.querySelector('.li-Location');
 const liMemberSince = document.querySelector('.li-membersince');
 const reposDivs = document.querySelectorAll('.repository > div');
+const profileInfo1 = document.querySelector('.profile-info1 span');
+const profileInfo2 = document.querySelector('.profile-info2 span');
+const profileInfo3 = document.querySelector('.profile-info3 span');
+const profileInfo4 = document.querySelector('.profile-info4 span');
+
 
 //이벤트 리스너들
 profileButtonClick.addEventListener("click", goToProfile);
@@ -69,7 +74,7 @@ function githubFormSubmit(event) {
 
 
 //위 getUser()에서 사용되는 함수
-//사진, 이름, 회사 등등을 html에 집어넣어준다.
+//사진, 이름, 회사 등등을 innerHtml에 집어넣어준다.
 
 async function getUser() {
   const userId = githubUsernameInput.value;
@@ -98,6 +103,10 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
   liWebsite.innerHTML = jsonData.blog ? jsonData.blog : 'N/A';
   liLocation.innerHTML = jsonData.location ? jsonData.location : 'N/A';
   liMemberSince.innerHTML = new Date(jsonData.created_at).toLocaleDateString(); // 가입 날짜를 보기 좋은 형식으로 변환
+  profileInfo1.innerHTML = jsonData.public_repos
+  profileInfo2.innerHTML = jsonData.public_gists
+  profileInfo3.innerHTML = jsonData.followers
+  profileInfo4.innerHTML = jsonData.following
 
   for (let i = 0; i < Math.min(repoData.length, 5); i++) {
     reposDivs[i].innerHTML = `
