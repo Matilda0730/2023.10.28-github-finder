@@ -1,5 +1,5 @@
 # 구름톤 트레이닝 과제 #3, Github finder
-
+https://matilda0730.github.io/2023.10.28-github-finder/
 ## 개발 기간 2023.10.28 ~
 
 [하위 과제]
@@ -12,4 +12,4 @@
 로컬 스토리지에 사용자 정보 저장 기능
 
 
-https://matilda0730.github.io/2023.10.28-github-finder/
+
