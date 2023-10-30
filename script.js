@@ -51,6 +51,33 @@ const profileInfo1 = document.querySelector('.profile-info1 span');
 const profileInfo2 = document.querySelector('.profile-info2 span');
 const profileInfo3 = document.querySelector('.profile-info3 span');
 const profileInfo4 = document.querySelector('.profile-info4 span');
+const githubUserName = githubUsernameInput.value
+
+//변수 선언(getUser()안에 있는 값 꺼내오려고)
+let jsonData = [];
+let repoData = []; 
+
+//로컬스토리지에 저장하려고 함
+
+function loadFromLocalStorage(username, data) {
+  localStorage.setItem('json_Data', username);
+  localStorage.setItem('repo')
+  
+  if (data) {
+    jsonData = JSON.parse(data);
+  }
+}
+
+function saveToLocalStorage() {
+  const data = JSON.stringify(jsonData); //string으로 변환시켜주는 것
+  window.localStorage.setItem('jsonData',data); //setItem(key, value)
+}
+
+function saveToLocalStorage2() {
+  const data = JSON.stringify(repoData); //string으로 변환시켜주는 것
+  window.localStorage.setItem('repoData',data); //setItem(key, value)
+}
+
 
 
 //이벤트 리스너들
@@ -59,7 +86,7 @@ githubForm.addEventListener("submit", githubFormSubmit);
 
 //이벤트 리스너에 연결된 함수들
 function goToProfile() {
-  window.open(`https://github.com/${githubUsernameInput.value}`)
+  window.open(`https://github.com/${githubUserName}`)
 }
 
 //submit됐을 때 실행되는 함수
@@ -116,5 +143,4 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
     `;
   }
 }
-
 
