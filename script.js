@@ -59,23 +59,61 @@ let repoData = [];
 
 //로컬스토리지에 저장하려고 함
 
-function loadFromLocalStorage(username, data) {
-  localStorage.setItem('json_Data', username);
-  localStorage.setItem('repo')
-  
-  if (data) {
-    jsonData = JSON.parse(data);
+
+function loadFromLocalStorage() {
+  const name = localStorage.getItem('jsonData');
+  const repo = localStorage.getItem('repoData');
+
+  if (name) {
+    const nameJson = JSON.parse(name);
+    githubUsernameInput.value = nameJson.login;
+
+    // 저장된 사용자 정보를 화면에 표시
+    const profilePhotoDiv = document.querySelector('.profile-photo');
+    if (nameJson.avatar_url) {
+      profilePhotoDiv.innerHTML = `<img src="${nameJson.avatar_url}" alt="${nameJson.login}'s profile photo">`;
+    }
+
+    profilePersonNickname.innerHTML = nameJson.login;
+    liCompany.innerHTML = nameJson.company ? nameJson.company : 'N/A';
+    liWebsite.innerHTML = nameJson.blog ? nameJson.blog : 'N/A';
+    liLocation.innerHTML = nameJson.location ? nameJson.location : 'N/A';
+    liMemberSince.innerHTML = new Date(nameJson.created_at).toLocaleDateString();
+    profileInfo1.innerHTML = nameJson.public_repos;
+    profileInfo2.innerHTML = nameJson.public_gists;
+    profileInfo3.innerHTML = nameJson.followers;
+    profileInfo4.innerHTML = nameJson.following;
+
+    // 숨겨진 요소들을 보이게 설정
+    const elementsToUnhide = document.querySelectorAll('.hidden');
+    elementsToUnhide.forEach(element => {
+      element.classList.remove('hidden');
+    });
+  }
+
+  if (repo) {
+    const repoJson = JSON.parse(repo);
+    for (let i = 0; i < Math.min(repoJson.length, 5); i++) {
+      reposDivs[i].innerHTML = `
+        <h3>${repoJson[i].name}</h3>
+        <p>${repoJson[i].description}</p>
+        <a href="${repoJson[i].html_url}" target="_blank">Go to repository</a>
+      `;
+    }
   }
 }
 
-function saveToLocalStorage() {
+
+function saveToLocalStorage(jsonData) {
   const data = JSON.stringify(jsonData); //string으로 변환시켜주는 것
-  window.localStorage.setItem('jsonData',data); //setItem(key, value)
+  localStorage.setItem('jsonData', JSON.stringify(jsonData))
+  // window.localStorage.setItem('jsonData',data); //setItem(key, value)
 }
 
-function saveToLocalStorage2() {
+function saveToLocalStorage2(repoData) {
   const data = JSON.stringify(repoData); //string으로 변환시켜주는 것
-  window.localStorage.setItem('repoData',data); //setItem(key, value)
+  localStorage.setItem('repoData', JSON.stringify(repoData));
+  // window.localStorage.setItem('repoData',data); //setItem(key, value)
 }
 
 
@@ -83,6 +121,7 @@ function saveToLocalStorage2() {
 //이벤트 리스너들
 profileButtonClick.addEventListener("click", goToProfile);
 githubForm.addEventListener("submit", githubFormSubmit);
+document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
 
 //이벤트 리스너에 연결된 함수들
 function goToProfile() {
@@ -122,8 +161,10 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
 
   const profilePhotoDiv = document.querySelector('.profile-photo');
   if (jsonData.avatar_url) { // avatar_url이 존재하는지 확인
-    profilePhotoDiv.innerHTML = `<img src="${jsonData.avatar_url}" alt="${userId}'s profile photo">`;
-  }
+    profilePhotoDiv.innerHTML = `<img src="${jsonData.avatar_url}" 
+    alt="${userId}'s profile photo" class="profile-image">`;
+}
+
 
   profilePersonNickname.innerHTML = jsonData.login;
   liCompany.innerHTML = jsonData.company ? jsonData.company : 'N/A'; // 만약 company 정보가 없으면 'N/A' 표시
@@ -142,4 +183,11 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
       <a href="${repoData[i].html_url}" target="_blank">Go to repository</a>
     `;
   }
+
+  saveToLocalStorage(jsonData)
+
+  saveToLocalStorage2(repoData)
+
+  loadFromLocalStorage(jsonData,repoData)
 }
+

@@ -10,9 +10,10 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="user.css" />
   </head>
   <body>
     <!--헤더-->
@@ -46,38 +47,42 @@
       </form>
       <!--프로필 1-->
       <section class="item-wrap">
-        <div class="hidden profile-person-nickname">
-        </div>
+        
         <div class="hidden profile-person-nickname2">
-          <div class="profile-photo">
+          <div class="profile-zone">
+            <div class="profile-photo">
+            </div>
+              <div class="hidden profile-person-nickname">
+              </div>
+              <button class="view-profile">View Profile</button>
+                <div> <!--버튼들 모여있게 하려고-->
+                  <button class="profile-info1">Public Repos: <span>1</span></button>
+                  <button class="profile-info2">Public Gists: <span>2</span></button>
+                  <button class="profile-info3">Followers: <span>3</span></button>
+                  <button class="profile-info4">Following: <span>4</span></button>
+                </div>
+                <div class="profile-ul">
+                  <ul> <!--company, website, location, member since 모여있게-->
+                    <li>Company:<span class="li-company">1</span></li>
+                    <li>Website/Blog:<span class="li-website">2</span> </li>
+                    <li>Location:<span class="li-Location">3</span> </li>
+                    <li>Member Since:<span class="li-membersince">4</span> </li>
+                  </ul>
+                </div>
+            </div>
+            <!--프로필 2: 최근 레포지토리-->
+          <div class="hidden repository">
+            <div class="hidden repo_info"></div>
+            <div class="hidden repo2_info"></div>
+            <div class="hidden repo3_info"></div>
+            <div class="hidden repo4_info"></div>
+            <div class="hidden repo5_info"></div>
           </div>
-            <button class="view-profile">View Profile</button>
-              <div> <!--버튼들 모여있게 하려고-->
-                <button class="profile-info1">Public Repos: <span>1</span></button>
-                <button class="profile-info2">Public Gists: <span>2</span></button>
-                <button class="profile-info3">Followers: <span>3</span></button>
-                <button class="profile-info4">Following: <span>4</span></button>
-              </div>
-              <div class="profile-ul">
-                <ul> <!--company, website, location, member since 모여있게-->
-                  <li>Company:<span class="li-company">1</span></li>
-                  <li>Website/Blog:<span class="li-website">2</span> </li>
-                  <li>Location:<span class="li-Location">3</span> </li>
-                  <li>Member Since:<span class="li-membersince">4</span> </li>
-                </ul>
-              </div>
         </div>
       </section>
 
-      <!--프로필 2: 최근 레포지토리-->
-      <section class="hidden repository">
-        
-        <div class="hidden repo_info"></div>
-        <div class="hidden repo2_info"></div>
-        <div class="hidden repo3_info"></div>
-        <div class="hidden repo4_info"></div>
-        <div class="hidden repo5_info"></div>
-      </section>
+      
+      
     </main>
     <footer class="git-footer">
       <span class="git-footer-text">Github Finder</span>
@@ -96,7 +101,7 @@
             alert( "Data Saved: " + msg );
           });
     </script>
-    <script src="script.js"></script>
     <script src="deco.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

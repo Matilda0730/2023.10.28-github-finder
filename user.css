@@ -1,0 +1,43 @@
+.repository > div {
+  border: solid 1px black;
+}
+
+.item-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.profile-person-nickname {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.repository {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  width: 50%;
+}
+
+
+.profile-photo img {
+  width: 200px;
+  border-radius: 100px;
+  margin-top: 13px
+}
+
+.profile-zone, .repository {
+  box-sizing: border-box;
+}
+
+.profile-zone {
+  width: 50%;
+  float: left;
+}
+
+
+
+
