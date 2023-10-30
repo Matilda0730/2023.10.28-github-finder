@@ -1,39 +1,8 @@
 class GithubPerson {
-  name;
-  publicRepos;
-  publicGists;
-  followers;
-  following;
-  company;
-  website;
-  location;
-  memberSince;
-  API_URL;
+  API_URL = "https://api.github.com/users/";
 
-  constructor(
-    API_URL,
-    accessToken,
-    name,
-    publicRepos,
-    publicGists,
-    followers,
-    following,
-    company,
-    website,
-    location,
-    memberSince
-  ) {
-    this.API_URL = "https://api.github.com/users/"
-    this.accessToken = "Mytoken";
-    this.name = name;
-    this.publicRepos = publicRepos;
-    this.publicGists = publicGists;
-    this.followers = followers;
-    this.following = following;
-    this.company = company;
-    this.website = website;
-    this.location = location;
-    this.memberSince = memberSince;
+  constructor(accessToken) {
+    this.accessToken = accessToken;
   }
 }
 //변수들 정의
@@ -52,14 +21,17 @@ const profileInfo2 = document.querySelector('.profile-info2 span');
 const profileInfo3 = document.querySelector('.profile-info3 span');
 const profileInfo4 = document.querySelector('.profile-info4 span');
 const githubUserName = githubUsernameInput.value
+const profileLink = document.querySelector('.view-profile');
+const publicRepos = document.querySelector('.profile-info1');
+const githubGists = document.querySelector('.profile-info2');
+const githubFollowers = document.querySelector('.profile-info3')
+const githubFollowing = document.querySelector('.profile-info4')
 
 //변수 선언(getUser()안에 있는 값 꺼내오려고)
 let jsonData = [];
 let repoData = []; 
 
 //로컬스토리지에 저장하려고 함
-
-
 function loadFromLocalStorage() {
   const name = localStorage.getItem('jsonData');
   const repo = localStorage.getItem('repoData');
@@ -97,7 +69,7 @@ function loadFromLocalStorage() {
       reposDivs[i].innerHTML = `
         <h3>${repoJson[i].name}</h3>
         <p>${repoJson[i].description}</p>
-        <a href="${repoJson[i].html_url}" target="_blank">Go to repository</a>
+        <a href="${repoJson[i].html_url}" target="_blank" class="goToRepository">Go to repository</a>
       `;
     }
   }
@@ -122,6 +94,8 @@ function saveToLocalStorage2(repoData) {
 profileButtonClick.addEventListener("click", goToProfile);
 githubForm.addEventListener("submit", githubFormSubmit);
 document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
+
+
 
 //이벤트 리스너에 연결된 함수들
 function goToProfile() {
@@ -180,14 +154,69 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
     reposDivs[i].innerHTML = `
       <h3>${repoData[i].name}</h3>
       <p>${repoData[i].description}</p>
-      <a href="${repoData[i].html_url}" target="_blank">Go to repository</a>
+      <a href="${repoData[i].html_url}" target="_blank" class="goToRepository">Go to repository</a>
+      
     `;
   }
 
-  saveToLocalStorage(jsonData)
-
   saveToLocalStorage2(repoData)
+  saveToLocalStorage(jsonData)
 
   loadFromLocalStorage(jsonData,repoData)
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  // 모든 repo_info div를 선택.
+  const repoDivs = document.querySelectorAll('.repository > div');
+
+  // 각 div에 클릭 이벤트 리스너를 추가.
+  repoDivs.forEach(div => {
+    div.addEventListener('click', function() {
+      const aTag = this.querySelector('a');
+      if(aTag) {
+        window.open(aTag.href, '_blank');
+      }
+    });
+  });
+});
+
+//프로필 버튼
+function goToProfile() {
+    const githubUserName = githubUsernameInput.value;
+    window.open(`https://github.com/${githubUserName}`, '_blank');
+}
+
+// 이벤트 리스너
+profileLink.addEventListener("click", goToProfile);
+
+
+//퍼블릭 레포 버튼
+function goToPublicRepos() {
+    const githubUserName1 = githubUsernameInput.value;
+    window.open(`https://github.com/${githubUserName1}?tab=repositories`, '_blank');
+}
+
+publicRepos.addEventListener("click", goToPublicRepos);
+
+//Gits 버튼
+function goToGists() {
+    const githubUserName2 = githubUsernameInput.value;
+    window.open(`https://api.github.com/users/${githubUserName2}/gists{/gist_id}`, '_blank');
+}
+
+githubGists.addEventListener("click", goToGists);
+
+function goToFollowers() {
+  const githubUserName3 = githubUsernameInput.value;
+  window.open(`https://github.com/${githubUserName3}?tab=followers`, '_blank');
+}
+
+githubFollowers.addEventListener("click", goToFollowers);
+
+
+function goToFollowing() {
+  const githubUserName4 = githubUsernameInput.value;
+  window.open(`https://github.com/${githubUserName4}?tab=following`, '_blank');
+}
+
+githubFollowing.addEventListener("click", goToFollowing);
