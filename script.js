@@ -4,7 +4,36 @@ class GithubPerson {
   constructor(accessToken) {
     this.accessToken = accessToken;
   }
+
+  async fetchUserData(userId) {
+    const response = await fetch(this.API_URL + userId, {
+      headers: {
+        'Authorization': 'Bearer ' + this.accessToken
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+    return response.json();
+  }
+
+  async fetchRepoData(userId) {
+    const response = await fetch(`${this.API_URL}${userId}/repos`, {
+      headers: {
+        'Authorization': 'Bearer ' + this.accessToken
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch repo data");
+    }
+    return response.json();
+  }
 }
+
+
+
 //변수들 정의
 const githubForm = document.querySelector("#github-form");
 const githubUsernameInput = document.querySelector("#github-username");
@@ -26,6 +55,8 @@ const publicRepos = document.querySelector('.profile-info1');
 const githubGists = document.querySelector('.profile-info2');
 const githubFollowers = document.querySelector('.profile-info3')
 const githubFollowing = document.querySelector('.profile-info4')
+const githubJandi = document.querySelector('.jandi')
+const githubGrassImage = document.querySelector("#github-grass-image")
 
 //변수 선언(getUser()안에 있는 값 꺼내오려고)
 let jsonData = [];
@@ -59,7 +90,8 @@ function loadFromLocalStorage() {
     // 숨겨진 요소들을 보이게 설정
     const elementsToUnhide = document.querySelectorAll('.hidden');
     elementsToUnhide.forEach(element => {
-      element.classList.remove('hidden');
+    element.classList.toggle('show');
+    element.classList.toggle('hidden');
     });
   }
 
@@ -73,7 +105,11 @@ function loadFromLocalStorage() {
       `;
     }
   }
+  //잔디밭 불러오기
+    const userId = githubUsernameInput.value;
+    githubGrassImage.src = `https://ghchart.rshah.org/${userId}`;
 }
+
 
 
 function saveToLocalStorage(jsonData) {
@@ -109,6 +145,7 @@ function githubFormSubmit(event) {
   const elementsToUnhide = document.querySelectorAll('.hidden');
   elementsToUnhide.forEach(element => {
     element.classList.remove('hidden');
+    element.classList.add('show');
   });
 }
 
@@ -117,6 +154,7 @@ function githubFormSubmit(event) {
 //사진, 이름, 회사 등등을 innerHtml에 집어넣어준다.
 
 async function getUser() {
+  try {
   const userId = githubUsernameInput.value;
   const response = await fetch('https://api.github.com/users/' + userId, {
     headers: {
@@ -131,7 +169,6 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
     }
   });
   const repoData = await repoResponse.json();
-
 
   const profilePhotoDiv = document.querySelector('.profile-photo');
   if (jsonData.avatar_url) { // avatar_url이 존재하는지 확인
@@ -158,11 +195,15 @@ const repoResponse = await fetch(`https://api.github.com/users/${userId}/repos`,
       
     `;
   }
-
   saveToLocalStorage2(repoData)
   saveToLocalStorage(jsonData)
+  loadFromLocalStorage(jsonData, repoData)
+    }
+    catch (error) {
+    console.error(error);
+    alert("Failed to get data from GitHub");
+  }
 
-  loadFromLocalStorage(jsonData,repoData)
 }
 
 document.addEventListener('DOMContentLoaded', function () {
