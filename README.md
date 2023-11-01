@@ -1,6 +1,6 @@
 # 구름톤 트레이닝 과제 #3, Github finder
 https://matilda0730.github.io/2023.10.28-github-finder/
-## 개발 기간 2023.10.28 ~
+## 개발 기간 2023.10.28 ~10.31
 
 [하위 과제]
 
